@@ -7,6 +7,8 @@ const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
+const btnScrollTo = document.querySelector('.btn--scroll-to');
+const section1 = document.querySelector('#section--1');
 
 const openModal = function (e) {     // eventlistenter for all the buttons
   e.preventDefault();
@@ -29,3 +31,14 @@ document.addEventListener('keydown', function (e) {
     closeModal();
   }
 });
+
+btnScrollTo.addEventListener('click',function(e){
+  section1.scrollIntoView({ behavior: 'smooth' });   //WAY ONE
+
+  /*//WAY TWO and more complicated
+ const top = section1.getBoundingClientRect().y + window.scrollY;   // we should always sum the "amount scolled" to the coordinates beacuse it changes when we scroll and by summing it to "amount scolled" it will be fixed
+ const left = section1.getBoundingClientRect().x + window.scrollX;
+ window.scrollTo({top:top,left:left,behavior:'smooth'}); 
+*/
+});
+
