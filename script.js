@@ -42,3 +42,22 @@ btnScrollTo.addEventListener('click',function(e){
 */
 });
 
+//event handler for page navagation
+
+/*  //way one to do that but this way impacts performance
+document.querySelectorAll('.nav__link').forEach((el)=>{    //basically we made this event just for the smooth scroll otherwise the href already goes to the link attached to it in th HTML
+  el.addEventListener('click',function(e){
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth'});  // here "this.getAttribute('href')" => return the id of the element
+  })
+});
+*/
+//way two which is better 
+document.querySelector('.nav__links').addEventListener('click',function(e){
+  e.preventDefault();
+    if(e.target.classList.contains('nav__link') && !e.target.classList.contains('btn--show-modal')){
+      document.querySelector(e.target.getAttribute('href')).scrollIntoView({ behavior: 'smooth'});
+    }
+    
+})
+
