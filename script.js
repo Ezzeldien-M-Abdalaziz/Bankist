@@ -58,6 +58,11 @@ document.querySelector('.nav__links').addEventListener('click',function(e){
     if(e.target.classList.contains('nav__link') && !e.target.classList.contains('btn--show-modal')){
       document.querySelector(e.target.getAttribute('href')).scrollIntoView({ behavior: 'smooth'});
     }
-    
 })
+
+//tabbed component event
+
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.opertaions__content');
 
