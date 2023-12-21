@@ -61,8 +61,26 @@ document.querySelector('.nav__links').addEventListener('click',function(e){
 })
 
 //tabbed component event
-
 const tabs = document.querySelectorAll('.operations__tab');
 const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.opertaions__content');
+const tabsContent = document.querySelectorAll('.operations__content');
 
+tabsContainer.addEventListener('click',function(e){
+  
+  const clicked = e.target.closest('.operations__tab'); //closest() searchs for the closest or fisrt element the has the class name in this case the button itself
+
+  if(!clicked) return;       //check if the user click one of the buttons or the span "guard clause"
+
+    tabsContent.forEach((el)=>{                //remove the active class from the default content
+      el.classList.remove('operations__content--active');
+    })
+
+    tabs.forEach((el)=>{     //remove the active class from the default tab
+      el.classList.remove('operations__tab--active');
+    })
+
+      //add active class to the content according to the button clicked
+    document.querySelector(`.operations__content--${clicked.dataset.tab}`).classList.add('operations__content--active');
+    //add active class to the tab according to the button clicked
+    clicked.classList.add('operations__tab--active');
+});

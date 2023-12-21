@@ -323,7 +323,7 @@ h4 {
 }
 
 .operations__content--active {
-  display: grid;
+  display: grid;   /*display the content*/
   grid-template-columns: 7rem 1fr;
   column-gap: 3rem;
   row-gap: 0.5rem;
