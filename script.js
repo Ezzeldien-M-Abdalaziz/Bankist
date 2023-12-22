@@ -84,3 +84,19 @@ tabsContainer.addEventListener('click',function(e){
     //add active class to the tab according to the button clicked
     clicked.classList.add('operations__tab--active');
 });
+
+//making the hover event
+
+const nav = document.querySelector('.nav');
+//const logo = document.querySelector('.nav__logo');
+const lis = document.querySelectorAll('.nav__item');
+const links = document.querySelectorAll('.nav__link');
+
+nav.addEventListener('mouseover',function(e){
+  const hover = e.target.closest('.nav__link');
+  if(!hover) return;
+  links.forEach((el)=>{
+    el.style.color = 'grey';
+  });
+
+})
