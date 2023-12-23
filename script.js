@@ -1,10 +1,6 @@
 'use strict';
 
-///////////////////////////////////////
-// Modal window
-
 //selectors
-
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
@@ -91,7 +87,7 @@ tabsContainer.addEventListener('click',function(e){
 });
 
 //making the hover event
-const handlehover = function(e,opacity){
+const handlehover = function(e){
 
   //console.log(e.target,this,e.currentTarget);    //for checking
 
@@ -112,4 +108,34 @@ nav.addEventListener('mouseover', function(e){     //we can pass the function li
 */
 nav.addEventListener('mouseover', handlehover.bind(.5));  // 0.5 here equals "this" keyword
 nav.addEventListener('mouseout', handlehover.bind(1));
+
+//making the sticky navigation
+const initialCoords = section1.getBoundingClientRect().top; 
+
+// the SCROLL EVENT IS BAD FOR PERFORMANCE so we don't use it anymore
+/*
+window.addEventListener('scroll',function(){
+  if(this.scrollY>= initialCoords){   //with - because we need the positve number
+    nav.classList.add('sticky');
+  }else{
+    nav.classList.remove('sticky');
+  }
+});
+*/
+
+//Sticky navigation with => IntersectionObserver API
+
+const obsCallback = function(entries,observer){
+  entries.forEach(entry => {
+    console.log(entry);
+  });
+};
+
+const obsOptions = {
+  root: null,
+  threshold: 0.2,         //how much space of the element we want to observe "section1" is actually appears in the screen
+};
+
+const observer = new IntersectionObserver(obsCallback,obsOptions);
+observer.observe(section1); 
 
