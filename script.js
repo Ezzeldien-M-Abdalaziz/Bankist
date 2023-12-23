@@ -3,13 +3,22 @@
 ///////////////////////////////////////
 // Modal window
 
+//selectors
+
 const modal = document.querySelector('.modal');
 const overlay = document.querySelector('.overlay');
 const btnCloseModal = document.querySelector('.btn--close-modal');
 const btnsOpenModal = document.querySelectorAll('.btn--show-modal');
 const btnScrollTo = document.querySelector('.btn--scroll-to');
 const section1 = document.querySelector('#section--1');
+const tabs = document.querySelectorAll('.operations__tab');
+const tabsContainer = document.querySelector('.operations__tab-container');
+const tabsContent = document.querySelectorAll('.operations__content');
+const nav = document.querySelector('.nav');
+const logo = document.querySelector('.nav__logo');
 
+
+//*********************EVENTS */
 const openModal = function (e) {     // eventlistenter for all the buttons
   e.preventDefault();
   modal.classList.remove('hidden');
@@ -43,7 +52,6 @@ btnScrollTo.addEventListener('click',function(e){
 });
 
 //event handler for page navagation
-
 /*  //way one to do that but this way impacts performance
 document.querySelectorAll('.nav__link').forEach((el)=>{    //basically we made this event just for the smooth scroll otherwise the href already goes to the link attached to it in th HTML
   el.addEventListener('click',function(e){
@@ -58,12 +66,9 @@ document.querySelector('.nav__links').addEventListener('click',function(e){
     if(e.target.classList.contains('nav__link') && !e.target.classList.contains('btn--show-modal')){
       document.querySelector(e.target.getAttribute('href')).scrollIntoView({ behavior: 'smooth'});
     }
-})
+});
 
 //tabbed component event
-const tabs = document.querySelectorAll('.operations__tab');
-const tabsContainer = document.querySelector('.operations__tab-container');
-const tabsContent = document.querySelectorAll('.operations__content');
 
 tabsContainer.addEventListener('click',function(e){
   
@@ -86,17 +91,25 @@ tabsContainer.addEventListener('click',function(e){
 });
 
 //making the hover event
+const handlehover = function(e,opacity){
 
-const nav = document.querySelector('.nav');
-//const logo = document.querySelector('.nav__logo');
-const lis = document.querySelectorAll('.nav__item');
-const links = document.querySelectorAll('.nav__link');
+  //console.log(e.target,this,e.currentTarget);    //for checking
 
-nav.addEventListener('mouseover',function(e){
-  const hover = e.target.closest('.nav__link');
+  const hover = e.target.classList.contains('nav__link');
   if(!hover) return;
-  links.forEach((el)=>{
-    el.style.color = 'grey';
+  nav.querySelectorAll('.nav__link').forEach((el)=>{
+    if(el !== e.target){
+      el.style.opacity = this;
+      logo.style.opacity = this;
+    }
   });
+};
 
-})
+/*
+nav.addEventListener('mouseover', function(e){     //we can pass the function like this but there a better way with bind method()
+  handlehover(e,.5);
+});
+*/
+nav.addEventListener('mouseover', handlehover.bind(.5));  // 0.5 here equals "this" keyword
+nav.addEventListener('mouseout', handlehover.bind(1));
+
