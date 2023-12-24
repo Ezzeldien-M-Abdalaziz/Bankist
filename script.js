@@ -12,6 +12,7 @@ const tabsContainer = document.querySelector('.operations__tab-container');
 const tabsContent = document.querySelectorAll('.operations__content');
 const nav = document.querySelector('.nav');
 const logo = document.querySelector('.nav__logo');
+const header = document.querySelector('.header');
 
 
 //*********************EVENTS */
@@ -124,18 +125,22 @@ window.addEventListener('scroll',function(){
 */
 
 //Sticky navigation with => IntersectionObserver API
+const stickyNav = function(entries){
+  const [entry] = entries;
+  console.log(entry);
 
-const obsCallback = function(entries,observer){
-  entries.forEach(entry => {
-    console.log(entry);
+  if(!entry.isIntersecting) nav.classList.add('sticky');
+  else nav.classList.remove('sticky');
+};
+
+const navHeight = nav.getBoundingClientRect().height;   // to get the height of the nav bar
+
+const headerObserver = new IntersectionObserver(stickyNav,
+  {    //this object could be seperated and passed as argument
+    root:null,
+    threshold:0,  //how much space of the element we want to observe "section1" is actually appears in the screen
+    rootMargin: `-${navHeight}px`  // 90 px before the thrshold works
   });
-};
 
-const obsOptions = {
-  root: null,
-  threshold: 0.2,         //how much space of the element we want to observe "section1" is actually appears in the screen
-};
-
-const observer = new IntersectionObserver(obsCallback,obsOptions);
-observer.observe(section1); 
+  headerObserver.observe(header);
 
