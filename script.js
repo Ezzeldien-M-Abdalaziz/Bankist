@@ -201,12 +201,12 @@ const headerObserver = new IntersectionObserver(stickyNav,
       const btnRight = document.querySelector('.slider__btn--right');
       const dotContainer = document.querySelector('.dots');
     
-      let curSlide = 0;
-      const maxSlide = slides.length;
-    
-      // Functions
-      const createDots = function () {
-        slides.forEach(function (_, i) {
+      let curSlide = 0;   //first slide
+      const maxSlide = slides.length;   //last slide number
+
+      // Functions************
+      const createDots = function () {  //create the dots and add them to the container in html 
+        slides.forEach(function (_, i) {   //used '_' as first para => no use for it
           dotContainer.insertAdjacentHTML(
             'beforeend',
             `<button class="dots__dot" data-slide="${i}"></button>`
@@ -214,35 +214,35 @@ const headerObserver = new IntersectionObserver(stickyNav,
         });
       };
     
-      const activateDot = function (slide) {
+      const activateDot = function (slide) {    // activate the current dot that represent the slide with a diffrent color
         document
           .querySelectorAll('.dots__dot')
-          .forEach(dot => dot.classList.remove('dots__dot--active'));
+          .forEach(dot => dot.classList.remove('dots__dot--active'));   //removing the last active dot first
     
         document
-          .querySelector(`.dots__dot[data-slide="${slide}"]`)
-          .classList.add('dots__dot--active');
+          .querySelector(`.dots__dot[data-slide="${slide}"]`)   //IMPORTANT Tecnique to reach the dot with same slide number
+          .classList.add('dots__dot--active');  
       };
     
-      const goToSlide = function (slide) {
+      const goToSlide = function (slide) {   //function to move slides
         slides.forEach(
-          (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)
+          (s, i) => (s.style.transform = `translateX(${100 * (i - slide)}%)`)  //exp => translateX(${100 * (1 - 1)}% => 0
         );
       };
     
       // Next slide
-      const nextSlide = function () {
-        if (curSlide === maxSlide - 1) {
-          curSlide = 0;
+      const nextSlide = function () {   //function to be used in the Right arrow and right keyword
+        if (curSlide === maxSlide - 1) {   // curslide = last slide number
+          curSlide = 0;   //set the slide again to the first 
         } else {
           curSlide++;
         }
     
-        goToSlide(curSlide);
-        activateDot(curSlide);
+        goToSlide(curSlide);     //call the move slide function with the value of the curSlide 
+        activateDot(curSlide);   //call the activateDot function with the value of the curSlide 
       };
     
-      const prevSlide = function () {
+      const prevSlide = function () {   //function to be used in the left arrow and left keyword
         if (curSlide === 0) {
           curSlide = maxSlide - 1;
         } else {
@@ -252,26 +252,26 @@ const headerObserver = new IntersectionObserver(stickyNav,
         activateDot(curSlide);
       };
     
-      const init = function () {
-        goToSlide(0);
+      const init = function () {    //initialze all the functions
+        goToSlide(0);    //start with the first slide
         createDots();
     
-        activateDot(0);
+        activateDot(0);   // starting value is zero to give the first dot the active 
       };
       init();
     
       // Event handlers
-      btnRight.addEventListener('click', nextSlide);
-      btnLeft.addEventListener('click', prevSlide);
+      btnRight.addEventListener('click', nextSlide);    //event for right arrow
+      btnLeft.addEventListener('click', prevSlide);     //event for left arrow
     
-      document.addEventListener('keydown', function (e) {
+      document.addEventListener('keydown', function (e) {   //event for right and left ketboard arrow
         if (e.key === 'ArrowLeft') prevSlide();
-        e.key === 'ArrowRight' && nextSlide();
+        e.key === 'ArrowRight' && nextSlide();    //using the short circuting
       });
     
-      dotContainer.addEventListener('click', function (e) {
+      dotContainer.addEventListener('click', function (e) {   //event for the dots
         if (e.target.classList.contains('dots__dot')) {
-          const { slide } = e.target.dataset;
+          const { slide } = e.target.dataset;    //same as =>  slide = e.target.dataset.slide
           goToSlide(slide);
           activateDot(slide);
         }
